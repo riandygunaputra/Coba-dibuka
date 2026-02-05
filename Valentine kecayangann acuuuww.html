@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Valentine Riandy</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        .buttons {
+            margin: 20px 0;
+            position: relative;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .yes-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        .yes-btn:hover {
+            background-color: #45a049;
+        }
+        .no-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .no-btn:hover {
+            background-color: #d32f2f;
+        }
+        .message {
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: #e91e63;
+        }
+        /* Animasi hati jatuh */
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 2em;
+            animation: fall 5s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { top: -10%; left: 10%; opacity: 1; }
+            100% { top: 110%; left: 90%; opacity: 0; }
+        }
+        .heart:nth-child(odd) { animation-delay: 1s; }
+        .heart:nth-child(even) { animation-delay: 2s; }
+        /* Tombol full screen */
+        .full-screen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            transform: none !important;
+            z-index: 10 !important;
+            font-size: 5em !important; /* Teks besar */
+            border-radius: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important; /* Teks di tengah */
+            background-color: #4caf50 !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Valentine Riandy 💖</h1>
+    <div id="output"></div>
+
+    <!-- Hati jatuh animasi -->
+    <div class="heart">❤️</div>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💓</div>
+
+    <script>
+        let output = document.getElementById('output');
+        let yesBtn, noBtn;
+        let attempts = 0;
+        let scale = 1;
+
+        function createButtons(question, yesText, noText, correctAnswer, nextFunction) {
+            output.innerHTML = `<div class="question">${question}</div>
+                                <div class="buttons">
+                                    <button class="yes-btn" id="yesBtn">${yesText}</button>
+                                    <button class="no-btn" id="noBtn">${noText}</button>
+                                </div>`;
+            yesBtn = document.getElementById('yesBtn');
+            noBtn = document.getElementById('noBtn');
+
+            yesBtn.addEventListener('click', () => {
+                nextFunction();
+            });
+
+            noBtn.addEventListener('click', () => {
+                attempts++;
+                scale += 0.5;
+                yesBtn.style.transform = `scale(${scale})`;
+                if (scale > 5) {
+                    yesBtn.classList.add('full-screen');
+                    noBtn.style.display = 'none';
+                }
+                if (attempts > 5) {
+                    output.innerHTML += '<div class="message">Tombol yes makin besar, tapi di sini kita paksa ya! 😜</div>';
+                }
+            });
+        }
+
+        function question1() {
+            createButtons(
+                "Apakah kamu pacar Riandyy? (yes/no): ",
+                "Yes",
+                "No",
+                "yes",
+                question2
+            );
+        }
+
+        function question2() {
+            attempts = 0;
+            scale = 1;
+            yesBtn.classList.remove('full-screen');
+            noBtn.style.display = 'inline-block';
+            createButtons(
+                "Bagus! Sekarang, Apakah Riandy sangat sayangg kamuu? (yes/no): ",
+                "Yes",
+                "No",
+                "yes",
+                question3
+            );
+        }
+
+        function question3() {
+            attempts = 0;
+            scale = 1;
+            yesBtn.classList.remove('full-screen');
+            noBtn.style.display = 'inline-block';
+            createButtons(
+                "Hehe! Sekarang, Siapa orang yang paling Riandy sayang? (Kenzie/Tempe): ",
+                "Kenzie",
+                "Tempe",
+                "Kenzie",
+                finalMessage
+            );
+        }
+
+        function finalMessage() {
+            output.innerHTML = '<div class="message">Peluk dan cium Riandy untuk klaim hadiahnyaaa😜 💋</div>';
+        }
+
+        // Mulai quiz
+        question1();
+    </script>
+</body>
+</html>
