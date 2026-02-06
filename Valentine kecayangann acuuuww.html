@@ -100,6 +100,7 @@
     <div class="heart">💖</div>
     <div class="heart">💗</div>
     <div class="heart">💓</div>
+    <img src="" alt="">
 
     <script>
         let output = document.getElementById('output');
@@ -122,21 +123,17 @@
 
             noBtn.addEventListener('click', () => {
                 attempts++;
-                scale += 0.5;
+                scale += 5;
                 yesBtn.style.transform = `scale(${scale})`;
-                if (scale > 5) {
-                    yesBtn.classList.add('full-screen');
+                if (scale > 35) {
                     noBtn.style.display = 'none';
-                }
-                if (attempts > 5) {
-                    output.innerHTML += '<div class="message">Tombol yes makin besar, tapi di sini kita paksa ya! 😜</div>';
                 }
             });
         }
 
         function question1() {
             createButtons(
-                "Apakah kamu pacar Riandyy? (yes/no): ",
+                "Apakah kamu suka Riandyy? (yes/no): ",
                 "Yes",
                 "No",
                 "yes",
@@ -170,6 +167,7 @@
                 "Kenzie",
                 finalMessage
             );
+            
         }
 
         function finalMessage() {
